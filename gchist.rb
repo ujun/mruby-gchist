@@ -1,7 +1,20 @@
 # -*- coding: utf-8 -*-
 
-db = SQLite3::Database.new('/Users/juchino/Library/Application Support/Google/Chrome/Default/History')
+def gchist str
 
-db.execute("select * from urls") do |row, column|
-  print row[1] + "------------" + row[2] + "\n"
+  db = SQLite3::Database.new('/Users/juchino/Library/Application Support/Google/Chrome/Default/History')
+
+  if str != ""
+    result = Array.new()
+    db.execute("select * from urls where title like '%" + str + "%'") do |row, column|
+      result.push(row[2])
+    end
+    return result
+  else
+    result = Array.new()
+    db.execute("select * from urls") do |row, column|
+      result.push(row[2])
+    end
+    return result
+  end
 end
