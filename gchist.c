@@ -24,11 +24,11 @@ int main(int argc, char* argv[]) {
     ret = mrb_funcall(mrb, mrb_top_self(mrb), "gchist", 1, str);
   }
 
-  mrb_close(mrb);
-
   for(int i = 0; i < RARRAY_LEN(ret); i++){
-    printf("%s\n", RSTRING_PTR(mrb_ary_ref(mrb, ret, i)));
+    printf("%s\n", mrb_str_to_cstr(mrb, mrb_ary_ref(mrb, ret, i))); 
   }
+
+  mrb_close(mrb);
 
   return 0;
 }

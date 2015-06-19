@@ -6,13 +6,13 @@ def gchist str
 
   if str != ""
     result = Array.new()
-    db.execute("select * from urls where title like '%" + str + "%'") do |row, column|
+    db.execute("select * from urls where title like '%" + str + "%'" + 'and title not like ""') do |row, column|
       result.push(row[2])
     end
     return result
   else
     result = Array.new()
-    db.execute("select * from urls") do |row, column|
+    db.execute('select * from urls where title not like ""') do |row, column|
       result.push(row[2])
     end
     return result
